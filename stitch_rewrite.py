@@ -1,8 +1,107 @@
-"use client";
-import { useState } from "react";
+import os
 
-export default function SubstitutionView() {
-  const [plaintext, setPlaintext] = useState("");
+views = [
+    {
+        "file": "e:/cse721_project/frontend/src/components/AesView.tsx",
+        "name": "AesView",
+        "title": "AES-256-GCM Configuration",
+        "subtitle": "Configure parameters and test encryption payloads in real-time.",
+        "state_vars": """  const [plaintext, setPlaintext] = useState("");
+  const [key, setKey] = useState("3a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d...");
+  const [result, setResult] = useState<any>(null);
+  const [loading, setLoading] = useState(false);""",
+        "params": """
+              <div>
+                <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Secret Key (Hex)</label>
+                <input
+                  type="text"
+                  className="w-full bg-surface-container text-primary-fixed-dim border border-outline-variant/30 rounded-lg px-4 py-2.5 focus:border-primary outline-none font-mono text-sm"
+                  value={key}
+                  onChange={(e) => setKey(e.target.value)}
+                />
+              </div>""",
+        "payload": "plaintext",
+        "set_payload": "setPlaintext",
+        "payload_label": "Input Data (Plaintext / Ciphertext)",
+        "encrypt_api": "api/aes/encrypt",
+        "decrypt_api": "api/aes/decrypt",
+        "encrypt_body": "JSON.stringify({ plaintext, key })",
+        "decrypt_body": "JSON.stringify({ ciphertext: plaintext, key })",
+        "extra_buttons": ""
+    },
+    {
+        "file": "e:/cse721_project/frontend/src/components/DesView.tsx",
+        "name": "DesView",
+        "title": "DES Configuration",
+        "subtitle": "Data Encryption Standard implementation.",
+        "state_vars": """  const [plaintext, setPlaintext] = useState("");
+  const [key, setKey] = useState("133457799BBCDFF1");
+  const [result, setResult] = useState<any>(null);
+  const [loading, setLoading] = useState(false);""",
+        "params": """
+              <div>
+                <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Secret Key (Hex)</label>
+                <input
+                  type="text"
+                  className="w-full bg-surface-container text-primary-fixed-dim border border-outline-variant/30 rounded-lg px-4 py-2.5 focus:border-primary outline-none font-mono text-sm uppercase"
+                  value={key}
+                  onChange={(e) => setKey(e.target.value.toUpperCase())}
+                  maxLength={16}
+                />
+              </div>""",
+        "payload": "plaintext",
+        "set_payload": "setPlaintext",
+        "payload_label": "Input Data (Plaintext / Ciphertext)",
+        "encrypt_api": "api/des/encrypt",
+        "decrypt_api": "api/des/decrypt",
+        "encrypt_body": "JSON.stringify({ plaintext, key })",
+        "decrypt_body": "JSON.stringify({ ciphertext: plaintext, key })",
+        "extra_buttons": ""
+    },
+    {
+        "file": "e:/cse721_project/frontend/src/components/TranspositionView.tsx",
+        "name": "TranspositionView",
+        "title": "Double Transposition Cipher",
+        "subtitle": "Columnar transposition cipher using two permutation keys.",
+        "state_vars": """  const [plaintext, setPlaintext] = useState("");
+  const [key1, setKey1] = useState("FIRST");
+  const [key2, setKey2] = useState("SECOND");
+  const [result, setResult] = useState<any>(null);
+  const [loading, setLoading] = useState(false);""",
+        "params": """
+              <div>
+                <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">First Permutation Key</label>
+                <input
+                  type="text"
+                  className="w-full bg-surface-container text-primary-fixed-dim border border-outline-variant/30 rounded-lg px-4 py-2.5 focus:border-primary outline-none font-mono text-sm uppercase"
+                  value={key1}
+                  onChange={(e) => setKey1(e.target.value.toUpperCase())}
+                />
+              </div>
+              <div>
+                <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Second Permutation Key</label>
+                <input
+                  type="text"
+                  className="w-full bg-surface-container text-primary-fixed-dim border border-outline-variant/30 rounded-lg px-4 py-2.5 focus:border-primary outline-none font-mono text-sm uppercase"
+                  value={key2}
+                  onChange={(e) => setKey2(e.target.value.toUpperCase())}
+                />
+              </div>""",
+        "payload": "plaintext",
+        "set_payload": "setPlaintext",
+        "payload_label": "Input Data (Plaintext / Ciphertext)",
+        "encrypt_api": "api/transposition/encrypt",
+        "decrypt_api": "api/transposition/decrypt",
+        "encrypt_body": "JSON.stringify({ plaintext, key1, key2 })",
+        "decrypt_body": "JSON.stringify({ ciphertext: plaintext, key1, key2 })",
+        "extra_buttons": ""
+    },
+    {
+        "file": "e:/cse721_project/frontend/src/components/SubstitutionView.tsx",
+        "name": "SubstitutionView",
+        "title": "Substitution Cipher",
+        "subtitle": "Classical substitution cipher with 26-letter key.",
+        "state_vars": """  const [plaintext, setPlaintext] = useState("");
   const [key, setKey] = useState("QWERTYUIOPASDFGHJKLZXCVBNM");
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -16,15 +115,46 @@ export default function SubstitutionView() {
       setResult({ type: "Brute Force Attack", ...(await res.json()) });
     } catch (e) {}
     setLoading(false);
-  };
+  };""",
+        "params": """
+              <div>
+                <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Key (26-letter permutation)</label>
+                <input
+                  type="text"
+                  className="w-full bg-surface-container text-primary-fixed-dim border border-outline-variant/30 rounded-lg px-4 py-2.5 focus:border-primary outline-none font-mono text-sm uppercase"
+                  value={key}
+                  onChange={(e) => setKey(e.target.value.toUpperCase())}
+                  maxLength={26}
+                />
+              </div>""",
+        "payload": "plaintext",
+        "set_payload": "setPlaintext",
+        "payload_label": "Input Data (Plaintext / Ciphertext)",
+        "encrypt_api": "api/substitution/encrypt",
+        "decrypt_api": "api/substitution/decrypt",
+        "encrypt_body": "JSON.stringify({ plaintext, key })",
+        "decrypt_body": "JSON.stringify({ ciphertext: plaintext, key })",
+        "extra_buttons": """
+            <button onClick={handleBruteForce} disabled={loading} className="w-full mt-4 bg-error-container text-on-error-container border border-error/30 py-3 rounded-lg font-mono text-[12px] uppercase font-bold hover:bg-error transition-colors flex items-center justify-center gap-2 active:scale-95">
+              <span className="material-symbols-outlined text-sm">warning</span>
+              BRUTE FORCE ATTACK
+            </button>"""
+    }
+]
+
+template = """"use client";
+import { useState } from "react";
+
+export default function __NAME__() {
+__STATE_VARS__
 
   const handleEncrypt = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/substitution/encrypt", {
+      const res = await fetch("http://localhost:8000/__ENCRYPT_API__", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plaintext, key }),
+        body: __ENCRYPT_BODY__,
       });
       const data = await res.json();
       setResult({ type: "Encryption", ...data });
@@ -35,10 +165,10 @@ export default function SubstitutionView() {
   const handleDecrypt = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/substitution/decrypt", {
+      const res = await fetch("http://localhost:8000/__DECRYPT_API__", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ciphertext: plaintext, key }),
+        body: __DECRYPT_BODY__,
       });
       const data = await res.json();
       setResult({ type: "Decryption", ...data });
@@ -50,8 +180,8 @@ export default function SubstitutionView() {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
-          <h1 className="text-[32px] font-bold font-headline text-on-surface mb-1">Substitution Cipher</h1>
-          <p className="text-on-surface-variant text-[16px]">Classical substitution cipher with 26-letter key.</p>
+          <h1 className="text-[32px] font-bold font-headline text-on-surface mb-1">__TITLE__</h1>
+          <p className="text-on-surface-variant text-[16px]">__SUBTITLE__</p>
         </div>
         <div className="flex items-center gap-3 bg-surface-container-high px-4 py-2 rounded-full border border-outline-variant/20">
           <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.5)]"></span>
@@ -70,17 +200,7 @@ export default function SubstitutionView() {
               Parameters
             </h3>
             <div className="space-y-5">
-
-              <div>
-                <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Key (26-letter permutation)</label>
-                <input
-                  type="text"
-                  className="w-full bg-surface-container text-primary-fixed-dim border border-outline-variant/30 rounded-lg px-4 py-2.5 focus:border-primary outline-none font-mono text-sm uppercase"
-                  value={key}
-                  onChange={(e) => setKey(e.target.value.toUpperCase())}
-                  maxLength={26}
-                />
-              </div>
+__PARAMS__
             </div>
           </section>
 
@@ -90,11 +210,11 @@ export default function SubstitutionView() {
               Payload
             </h3>
             <div className="mb-6">
-               <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Input Data (Plaintext / Ciphertext)</label>
+               <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">__PAYLOAD_LABEL__</label>
                <textarea
                   className="w-full bg-surface-container text-on-surface border border-outline-variant/30 rounded-lg p-4 focus:border-primary outline-none font-mono text-sm resize-none min-h-[160px]"
-                  value={plaintext}
-                  onChange={(e) => setPlaintext(e.target.value)}
+                  value={__PAYLOAD__}
+                  onChange={(e) => __SET_PAYLOAD__(e.target.value)}
                   placeholder="Enter text to encrypt/decrypt..."
                />
             </div>
@@ -108,11 +228,7 @@ export default function SubstitutionView() {
                 <span className="material-symbols-outlined text-sm">lock_open</span>
                 DECRYPT
               </button>
-            </div>
-            <button onClick={handleBruteForce} disabled={loading} className="w-full mt-4 bg-error-container text-on-error-container border border-error/30 py-3 rounded-lg font-mono text-[12px] uppercase font-bold hover:bg-error transition-colors flex items-center justify-center gap-2 active:scale-95">
-              <span className="material-symbols-outlined text-sm">warning</span>
-              BRUTE FORCE ATTACK
-            </button>
+            </div>__EXTRA_BUTTONS__
           </section>
         </div>
 
@@ -137,7 +253,7 @@ export default function SubstitutionView() {
                     <div>
                       <h4 className="font-mono text-[11px] text-on-surface-variant mb-2 uppercase tracking-widest flex justify-between">
                          Ciphertext (Hex/String)
-                         <button onClick={() => setPlaintext(result.ciphertext)} className="text-primary hover:text-primary-container normal-case tracking-normal">Use as Input</button>
+                         <button onClick={() => __SET_PAYLOAD__(result.ciphertext)} className="text-primary hover:text-primary-container normal-case tracking-normal">Use as Input</button>
                       </h4>
                       <div className="bg-background border border-outline-variant/30 rounded-lg p-4 relative group">
                         <p className="font-mono text-sm text-primary-fixed break-all leading-relaxed">{result.ciphertext}</p>
@@ -148,7 +264,7 @@ export default function SubstitutionView() {
                     <div>
                       <h4 className="font-mono text-[11px] text-on-surface-variant mb-2 uppercase tracking-widest flex justify-between">
                          Decrypted Plaintext
-                         <button onClick={() => setPlaintext(result.plaintext)} className="text-primary hover:text-primary-container normal-case tracking-normal">Use as Input</button>
+                         <button onClick={() => __SET_PAYLOAD__(result.plaintext)} className="text-primary hover:text-primary-container normal-case tracking-normal">Use as Input</button>
                       </h4>
                       <div className="bg-background border border-outline-variant/30 rounded-lg p-4">
                         <p className="font-mono text-sm text-secondary-fixed-dim break-all leading-relaxed">{result.plaintext}</p>
@@ -196,3 +312,25 @@ export default function SubstitutionView() {
     </div>
   );
 }
+"""
+
+for v in views:
+    code = template
+    code = code.replace("__NAME__", v["name"])
+    code = code.replace("__TITLE__", v["title"])
+    code = code.replace("__SUBTITLE__", v["subtitle"])
+    code = code.replace("__STATE_VARS__", v["state_vars"])
+    code = code.replace("__PARAMS__", v["params"])
+    code = code.replace("__PAYLOAD_LABEL__", v["payload_label"])
+    code = code.replace("__PAYLOAD__", v["payload"])
+    code = code.replace("__SET_PAYLOAD__", v["set_payload"])
+    code = code.replace("__ENCRYPT_API__", v["encrypt_api"])
+    code = code.replace("__DECRYPT_API__", v["decrypt_api"])
+    code = code.replace("__ENCRYPT_BODY__", v["encrypt_body"])
+    code = code.replace("__DECRYPT_BODY__", v["decrypt_body"])
+    code = code.replace("__EXTRA_BUTTONS__", v["extra_buttons"])
+    
+    with open(v["file"], "w", encoding="utf-8") as f:
+        f.write(code)
+
+print("Applied Stitch to simple views.")

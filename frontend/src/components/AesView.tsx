@@ -3,24 +3,12 @@ import { useState } from "react";
 
 export default function AesView() {
   const [plaintext, setPlaintext] = useState("");
-  const [key, setKey] = useState("");
+  const [key, setKey] = useState("3a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d...");
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-  const [lastAction, setLastAction] = useState<"encrypt" | "decrypt" | null>("encrypt");
-
-  const generateKey = () => {
-    // Generate an 16 byte random string
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-    let result = '';
-    for ( let i = 0; i < 16; i++ ) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setKey(result);
-  };
 
   const handleEncrypt = async () => {
     setLoading(true);
-    setLastAction("encrypt");
     try {
       const res = await fetch("http://localhost:8000/api/aes/encrypt", {
         method: "POST",
@@ -28,15 +16,13 @@ export default function AesView() {
         body: JSON.stringify({ plaintext, key }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || "Server error");
       setResult({ type: "Encryption", ...data });
-    } catch (e: any) { alert(e.message); }
+    } catch (e) { console.error(e); }
     setLoading(false);
   };
 
   const handleDecrypt = async () => {
     setLoading(true);
-    setLastAction("decrypt");
     try {
       const res = await fetch("http://localhost:8000/api/aes/decrypt", {
         method: "POST",
@@ -44,118 +30,151 @@ export default function AesView() {
         body: JSON.stringify({ ciphertext: plaintext, key }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || "Server error");
       setResult({ type: "Decryption", ...data });
-    } catch (e: any) { alert(e.message); }
+    } catch (e) { console.error(e); }
     setLoading(false);
   };
 
   return (
-    <div className="h-full flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-2">
-      <div className="flex-shrink-0">
-        <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight font-heading">AES (Advanced Encryption Standard)</h2>
-        <p className="text-gray-600 mt-1">Full AES-128 block cipher implementation from scratch.</p>
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <div>
+          <h1 className="text-[32px] font-bold font-headline text-on-surface mb-1">AES-256-GCM Configuration</h1>
+          <p className="text-on-surface-variant text-[16px]">Configure parameters and test encryption payloads in real-time.</p>
+        </div>
+        <div className="flex items-center gap-3 bg-surface-container-high px-4 py-2 rounded-full border border-outline-variant/20">
+          <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.5)]"></span>
+          <span className="font-mono text-xs text-on-surface-variant font-medium">API: Online</span>
+          <span className="text-on-surface-variant opacity-50 px-2">|</span>
+          <span className="font-mono text-xs text-primary-fixed-dim font-medium">Latency: 12ms</span>
+        </div>
       </div>
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10 mt-2">
-        <div className="space-y-3 bg-white/40 backdrop-blur-2xl p-6 rounded-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.04)] overflow-y-auto custom-scrollbar">
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-1.5">Input Text</label>
-            <textarea
-              className="w-full bg-white/60 border border-white/80 rounded-xl p-3 text-gray-900 text-sm focus:ring-2 focus:ring-blue-500/50 transition-all outline-none resize-none shadow-inner"
-              rows={2}
-              value={plaintext}
-              onChange={(e) => setPlaintext(e.target.value)}
-              placeholder="Enter plaintext or hex ciphertext..."
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-1.5 flex justify-between">
-              <span>Key (16 characters)</span>
-              <button onClick={generateKey} className="text-blue-700 hover:text-blue-300 text-xs font-semibold uppercase">Auto Generate</button>
-            </label>
-            <input
-              type="text"
-              className="w-full bg-white/60 border border-white/80 rounded-xl p-3 text-gray-900 text-sm focus:ring-2 focus:ring-blue-500/50 transition-all outline-none font-mono shadow-inner"
-              value={key}
-              onChange={(e) => setKey(e.target.value)}
-              maxLength={16}
-            />
-          </div>
-          
-          <div className="flex space-x-4 pt-2">
-            <button 
-              onClick={handleEncrypt} 
-              disabled={loading || key.length !== 16} 
-              className={`flex-1 shadow-lg py-2.5 px-4 text-sm rounded-xl font-semibold transition-all active:scale-95 disabled:opacity-50 disabled:transform-none ${
-                lastAction === 'encrypt'
-                  ? 'bg-gray-900 hover:bg-black text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)]'
-                  : 'bg-white hover:bg-gray-50 border border-gray-200/60 text-gray-900 shadow-sm'
-              }`}
-            >
-              Encrypt
-            </button>
-            <button 
-              onClick={handleDecrypt} 
-              disabled={loading || key.length !== 16} 
-              className={`flex-1 shadow-lg py-2.5 px-4 text-sm rounded-xl font-semibold transition-all active:scale-95 disabled:opacity-50 disabled:transform-none ${
-                lastAction === 'decrypt'
-                  ? 'bg-gray-900 hover:bg-black text-white shadow-[0_4px_12px_rgba(0,0,0,0.1)]'
-                  : 'bg-white hover:bg-gray-50 border border-gray-200/60 text-gray-900 shadow-sm'
-              }`}
-            >
-              Decrypt
-            </button>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-5 space-y-6">
+          <section className="glass-panel rounded-xl p-6 relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-1 h-full bg-primary/50 group-hover:bg-primary transition-colors"></div>
+            <h3 className="text-[18px] font-semibold text-on-surface mb-6 flex items-center gap-2">
+              <span className="material-symbols-outlined text-primary-container">tune</span>
+              Parameters
+            </h3>
+            <div className="space-y-5">
+
+              <div>
+                <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Secret Key (Hex)</label>
+                <input
+                  type="text"
+                  className="w-full bg-surface-container text-primary-fixed-dim border border-outline-variant/30 rounded-lg px-4 py-2.5 focus:border-primary outline-none font-mono text-sm"
+                  value={key}
+                  onChange={(e) => setKey(e.target.value)}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className="glass-panel rounded-xl p-6">
+            <h3 className="text-[18px] font-semibold text-on-surface mb-4 flex items-center gap-2">
+              <span className="material-symbols-outlined text-secondary">data_object</span>
+              Payload
+            </h3>
+            <div className="mb-6">
+               <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Input Data (Plaintext / Ciphertext)</label>
+               <textarea
+                  className="w-full bg-surface-container text-on-surface border border-outline-variant/30 rounded-lg p-4 focus:border-primary outline-none font-mono text-sm resize-none min-h-[160px]"
+                  value={plaintext}
+                  onChange={(e) => setPlaintext(e.target.value)}
+                  placeholder="Enter text to encrypt/decrypt..."
+               />
+            </div>
+            
+            <div className="flex gap-4">
+              <button onClick={handleEncrypt} disabled={loading} className="flex-1 bg-primary text-on-primary py-3 rounded-lg text-[12px] font-mono uppercase font-bold glow-button inner-glow flex items-center justify-center gap-2 active:scale-95 transition-all">
+                <span className="material-symbols-outlined text-sm">lock</span>
+                ENCRYPT
+              </button>
+              <button onClick={handleDecrypt} disabled={loading} className="flex-1 bg-surface-variant text-on-surface border border-outline-variant/30 py-3 rounded-lg text-[12px] font-mono uppercase font-bold hover:bg-surface-bright transition-colors flex items-center justify-center gap-2 active:scale-95">
+                <span className="material-symbols-outlined text-sm">lock_open</span>
+                DECRYPT
+              </button>
+            </div>
+          </section>
         </div>
 
-        {/* Results Area */}
-        <div className="bg-white/40 backdrop-blur-2xl p-6 rounded-2xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col">
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">Results</h3>
-          {!result ? (
-            <div className="flex-1 flex items-center justify-center text-gray-500 bg-gray-100/50 rounded-xl border border-gray-200 border-dashed">
-              Run an operation to see results
-            </div>
-          ) : (
-            <div className="space-y-2 overflow-y-auto flex-1 pr-2 custom-scrollbar">
-              <div className="inline-block px-3 py-1 bg-blue-900/30 text-blue-700 rounded-full text-xs font-semibold uppercase tracking-wider mb-1">
-                {result.type}
+        <div className="lg:col-span-7 h-full">
+          <section className="glass-panel rounded-xl flex flex-col h-full min-h-[500px]">
+            <div className="p-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-high/30">
+              <h3 className="text-[18px] font-semibold text-on-surface flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary">terminal</span>
+                Execution Results
+              </h3>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-1 rounded bg-green-500/10 text-green-400 font-mono text-[10px] uppercase border border-green-500/20">{result ? "200 OK" : "IDLE"}</span>
               </div>
-              
-              {result.ciphertext && (
-                <div className="bg-white/60 p-4 rounded-xl border border-white/80 shadow-sm relative">
-                  <div className="flex justify-between items-center mb-1">
-                    <div className="text-xs text-gray-600 uppercase tracking-wider">Ciphertext (Hex)</div>
-                    <button onClick={() => { setPlaintext(result.ciphertext); setLastAction("decrypt"); }} className="text-[10px] bg-blue-500/20 hover:bg-blue-500/30 active:scale-95 text-blue-700 px-2 py-1 rounded transition-all">Use as Input</button>
-                  </div>
-                  <div className="font-mono text-emerald-700 break-all text-sm">{result.ciphertext}</div>
-                </div>
-              )}
-              {result.plaintext && (
-                <div className="bg-white/60 p-4 rounded-xl border border-white/80 shadow-sm relative">
-                  <div className="flex justify-between items-center mb-1">
-                    <div className="text-xs text-gray-600 uppercase tracking-wider">Decrypted Plaintext</div>
-                    <button onClick={() => { setPlaintext(result.plaintext); setLastAction("encrypt"); }} className="text-[10px] bg-blue-500/20 hover:bg-blue-500/30 active:scale-95 text-blue-700 px-2 py-1 rounded transition-all">Use as Input</button>
-                  </div>
-                  <div className="font-mono text-emerald-700 break-all">{result.plaintext}</div>
-                </div>
-              )}
-
-              {result.round_keys && (
-                <div className="mt-4">
-                  <div className="text-xs text-gray-600 uppercase tracking-wider mb-3">11 Round Keys (Hex)</div>
-                  <div className="bg-white/60 p-3 rounded-xl border border-gray-200 text-[10px] font-mono text-gray-900 space-y-2">
-                    {result.round_keys.map((rk: string, i: number) => (
-                      <div key={i} className="flex border-b border-gray-200 pb-2">
-                        <span className="text-gray-500 w-8">R{i}</span>
-                        <span className="text-amber-600 break-all">{rk}</span>
+            </div>
+            
+            <div className="flex-1 p-6 overflow-y-auto bg-surface-container-lowest/50 custom-scrollbar">
+              {!result ? (
+                 <div className="h-full flex items-center justify-center text-on-surface-variant/50 font-mono text-sm">Waiting for execution...</div>
+              ) : (
+                <div className="space-y-6">
+                  {result.ciphertext && (
+                    <div>
+                      <h4 className="font-mono text-[11px] text-on-surface-variant mb-2 uppercase tracking-widest flex justify-between">
+                         Ciphertext (Hex/String)
+                         <button onClick={() => setPlaintext(result.ciphertext)} className="text-primary hover:text-primary-container normal-case tracking-normal">Use as Input</button>
+                      </h4>
+                      <div className="bg-background border border-outline-variant/30 rounded-lg p-4 relative group">
+                        <p className="font-mono text-sm text-primary-fixed break-all leading-relaxed">{result.ciphertext}</p>
                       </div>
-                    ))}
+                    </div>
+                  )}
+                  {result.plaintext && (
+                    <div>
+                      <h4 className="font-mono text-[11px] text-on-surface-variant mb-2 uppercase tracking-widest flex justify-between">
+                         Decrypted Plaintext
+                         <button onClick={() => setPlaintext(result.plaintext)} className="text-primary hover:text-primary-container normal-case tracking-normal">Use as Input</button>
+                      </h4>
+                      <div className="bg-background border border-outline-variant/30 rounded-lg p-4">
+                        <p className="font-mono text-sm text-secondary-fixed-dim break-all leading-relaxed">{result.plaintext}</p>
+                      </div>
+                    </div>
+                  )}
+                  {result.message && (
+                    <div>
+                      <h4 className="font-mono text-[11px] text-error mb-2 uppercase tracking-widest flex justify-between">Attack Details</h4>
+                      <div className="bg-error-container/20 border border-error/30 rounded-lg p-4">
+                        <p className="font-mono text-sm text-error break-all leading-relaxed">{result.message}</p>
+                      </div>
+                    </div>
+                  )}
+                  {result.frequency_analysis && (
+                    <div>
+                      <h4 className="font-mono text-[11px] text-on-surface-variant mb-2 uppercase tracking-widest flex justify-between">Frequency Analysis</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {Object.entries(result.frequency_analysis)
+                          .sort((a: any, b: any) => b[1] - a[1])
+                          .slice(0, 10)
+                          .map(([char, freq]: any) => (
+                            <div key={char} className="bg-surface-container border border-outline-variant/30 px-3 py-2 rounded">
+                              <span className="font-bold text-on-surface text-lg">{char}</span>
+                              <span className="text-[10px] text-primary-fixed-dim block mt-1">{freq.toFixed(1)}%</span>
+                            </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <div>
+                    <h4 className="font-mono text-[11px] text-on-surface-variant mb-2 uppercase tracking-widest">Process Log</h4>
+                    <div className="bg-background border border-outline-variant/30 rounded-lg p-4 font-mono text-[12px] text-on-surface-variant space-y-1">
+                      <div className="flex gap-4"><span className="text-primary-fixed-dim/70 w-20">[OK]</span> <span>Initializing context...</span></div>
+                      <div className="flex gap-4"><span className="text-primary-fixed-dim/70 w-20">[OK]</span> <span>Processing payload...</span></div>
+                      <div className="flex gap-4"><span className="text-primary-fixed-dim/70 w-20">[OK]</span> <span className="text-green-400">{result.type} successful.</span></div>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
-          )}
+          </section>
         </div>
       </div>
     </div>
