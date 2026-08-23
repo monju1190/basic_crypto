@@ -74,7 +74,7 @@ export default function RsaView() {
   };
 
   return (
-    <div className="flex flex-col h-full flex-1 min-h-0 space-y-4 w-full">
+    <div className="flex flex-col h-full w-full overflow-hidden space-y-4">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-3 flex-shrink-0">
         <div>
           <h1 className="text-[24px] font-bold font-headline text-on-surface mb-1">RSA Configuration</h1>
@@ -83,8 +83,8 @@ export default function RsaView() {
 
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-4 flex-1 min-h-0">
-        <div className="w-full lg:w-5/12 flex flex-col space-y-4 h-full min-h-0 overflow-y-auto custom-scrollbar pr-2 pb-2">
+      <div className="flex flex-col lg:flex-row gap-4 flex-1 overflow-hidden">
+        <div className="w-full lg:w-5/12 h-full overflow-y-auto custom-scrollbar pr-2 pb-2 flex flex-col space-y-4">
           <section className="glass-panel rounded-xl p-4 relative flex-shrink-0 overflow-hidden group">
             <div className="absolute top-0 left-0 w-1 h-full bg-primary/50 group-hover:bg-primary transition-colors"></div>
             <h3 className="text-[18px] font-semibold text-on-surface mb-3 flex items-center gap-2">
@@ -127,15 +127,15 @@ export default function RsaView() {
             </div>
           </section>
 
-          <section className="glass-panel rounded-xl p-4 flex-1 flex flex-col min-h-0">
+          <section className="glass-panel rounded-xl p-4 flex flex-col">
             <h3 className="text-[18px] font-semibold text-on-surface mb-3 flex items-center gap-2">
               <span className="material-symbols-outlined text-secondary">data_object</span>
               Payload
             </h3>
-            <div className="mb-4 flex-1 flex flex-col min-h-0">
+            <div className="mb-4 flex flex-col">
               <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Input Data (Plaintext / Ciphertext)</label>
               <textarea
-                className={`w-full bg-surface-container text-on-surface border border-outline-variant/30 rounded-lg p-4 focus:border-primary outline-none font-mono text-sm resize-none flex-1 min-h-0 ${choice === "generate" ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`w-full bg-surface-container text-on-surface border border-outline-variant/30 rounded-lg p-4 focus:border-primary outline-none font-mono text-sm resize-none custom-scrollbar min-h-[120px] ${choice === "generate" ? "opacity-50 cursor-not-allowed" : ""}`}
                 value={plaintext}
                 onChange={(e) => setPlaintext(e.target.value)}
                 disabled={choice === "generate"}
@@ -150,8 +150,8 @@ export default function RsaView() {
           </section>
         </div>
 
-        <div className="w-full lg:w-7/12 h-full min-h-0">
-          <section className="glass-panel rounded-xl flex flex-col h-full ">
+        <div className="w-full lg:w-7/12 flex flex-col h-full overflow-hidden">
+          <section className="glass-panel rounded-xl flex flex-col h-full min-h-[500px]">
             <div className="p-3 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-high/30">
               <h3 className="text-[18px] font-semibold text-on-surface flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary">terminal</span>
