@@ -84,7 +84,7 @@ export default function RsaView() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-0">
-        <div className="lg:col-span-5 flex flex-col space-y-4 h-full overflow-hidden">
+        <div className="lg:col-span-5 flex flex-col space-y-4 h-full overflow-y-auto custom-scrollbar pr-2 pb-2">
           <section className="glass-panel rounded-xl p-4 relative flex-shrink-0 overflow-hidden group">
             <div className="absolute top-0 left-0 w-1 h-full bg-primary/50 group-hover:bg-primary transition-colors"></div>
             <h3 className="text-[18px] font-semibold text-on-surface mb-3 flex items-center gap-2">
