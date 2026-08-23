@@ -73,24 +73,24 @@ export default function EccView() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+    <div className="flex flex-col h-full space-y-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-3 flex-shrink-0">
         <div>
-          <h1 className="text-[32px] font-bold font-headline text-on-surface mb-1">ECC Configuration</h1>
+          <h1 className="text-[24px] font-bold font-headline text-on-surface mb-1">ECC Configuration</h1>
           <p className="text-on-surface-variant text-[16px]">Elliptic Curve Cryptography Domain parameters over F_p and ECDH Key Exchange.</p>
         </div>
         
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-5 space-y-6">
-          <section className="glass-panel rounded-xl p-6 relative overflow-hidden group">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-0">
+        <div className="lg:col-span-5 flex flex-col space-y-4 h-full overflow-hidden">
+          <section className="glass-panel rounded-xl p-4 relative flex-shrink-0 overflow-hidden group">
             <div className="absolute top-0 left-0 w-1 h-full bg-primary/50 group-hover:bg-primary transition-colors"></div>
-            <h3 className="text-[18px] font-semibold text-on-surface mb-6 flex items-center gap-2">
+            <h3 className="text-[18px] font-semibold text-on-surface mb-3 flex items-center gap-2">
               <span className="material-symbols-outlined text-primary-container">tune</span>
               Domain Parameters
             </h3>
-            <div className="space-y-5">
+            <div className="space-y-3">
               <div>
                 <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Prime (p) & Curve Coeffs (a, b)</label>
                 <div className="grid grid-cols-3 gap-2 bg-surface-container p-3 rounded-lg border border-outline-variant/30">
@@ -145,14 +145,14 @@ export default function EccView() {
             </div>
           </section>
 
-          <section className="glass-panel rounded-xl p-6 relative overflow-hidden group">
+          <section className="glass-panel rounded-xl p-4 relative flex-shrink-0 overflow-hidden group">
             <div className="absolute top-0 left-0 w-1 h-full bg-secondary/50 group-hover:bg-secondary transition-colors"></div>
-            <h3 className="text-[18px] font-semibold text-on-surface mb-4 flex items-center gap-2">
+            <h3 className="text-[18px] font-semibold text-on-surface mb-3 flex items-center gap-2">
               <span className="material-symbols-outlined text-secondary">sync_alt</span>
               ECDH Key Exchange
             </h3>
             
-            <div className="space-y-5">
+            <div className="space-y-3">
               <div>
                 <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Alice & Bob Private Keys</label>
                 <div className="grid grid-cols-2 gap-4">
@@ -176,8 +176,8 @@ export default function EccView() {
         </div>
 
         <div className="lg:col-span-7 h-full">
-          <section className="glass-panel rounded-xl flex flex-col h-full min-h-[500px]">
-            <div className="p-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-high/30">
+          <section className="glass-panel rounded-xl flex flex-col h-full ">
+            <div className="p-3 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-high/30">
               <h3 className="text-[18px] font-semibold text-on-surface flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary">terminal</span>
                 Execution Results
@@ -187,7 +187,7 @@ export default function EccView() {
               </div>
             </div>
             
-            <div className="flex-1 p-6 overflow-y-auto bg-surface-container-lowest/50 custom-scrollbar">
+            <div className="flex-1 p-4 overflow-y-auto bg-surface-container-lowest/50 custom-scrollbar">
               {!result ? (
                  <div className="h-full flex items-center justify-center text-on-surface-variant/50 font-mono text-sm">Waiting for execution...</div>
               ) : (

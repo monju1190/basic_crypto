@@ -60,8 +60,8 @@ export default function Home() {
           </nav>
         
         {/* Main Workspace */}
-        <main className="flex-1 p-6 md:p-10 overflow-y-auto w-full relative custom-scrollbar">
-          <div className="max-w-[1440px] mx-auto">
+        <main className="flex-1 p-4 md:p-6 overflow-hidden w-full relative flex flex-col">
+          <div className="max-w-[1440px] w-full mx-auto flex-1 min-h-0">
             {activeTab === "substitution" && <SubstitutionView />}
             {activeTab === "transposition" && <TranspositionView />}
             {activeTab === "des" && <DesView />}
