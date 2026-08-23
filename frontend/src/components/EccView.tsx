@@ -7,15 +7,15 @@ export default function EccView() {
   const [a, setA] = useState(2);
   const [b, setB] = useState(2);
   const [n, setN] = useState(19);
-  
+
   const [Gx, setGx] = useState(5);
   const [Gy, setGy] = useState(1);
   const [privKey, setPrivKey] = useState(3);
-  
+
   // ECDH Inputs
   const [privA, setPrivA] = useState(3);
   const [privB, setPrivB] = useState(10);
-  
+
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
@@ -73,17 +73,17 @@ export default function EccView() {
   };
 
   return (
-    <div className="flex flex-col flex-1 space-y-4 w-full">
+    <div className="flex flex-col h-full w-full overflow-hidden space-y-4">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-3 flex-shrink-0">
         <div>
           <h1 className="text-[24px] font-bold font-headline text-on-surface mb-1">ECC Configuration</h1>
           <p className="text-on-surface-variant text-[16px]">Elliptic Curve Cryptography Domain parameters over F_p and ECDH Key Exchange.</p>
         </div>
-        
+
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-4 flex-1">
-        <div className="w-full lg:w-5/12 flex flex-col space-y-4">
+      <div className="flex flex-col lg:flex-row gap-4 flex-1 overflow-hidden">
+        <div className="w-full lg:w-5/12 h-full overflow-y-auto custom-scrollbar pr-2 pb-2 flex flex-col space-y-4">
           <section className="glass-panel rounded-xl p-4 relative flex-shrink-0 overflow-hidden group">
             <div className="absolute top-0 left-0 w-1 h-full bg-primary/50 group-hover:bg-primary transition-colors"></div>
             <h3 className="text-[18px] font-semibold text-on-surface mb-3 flex items-center gap-2">
@@ -94,39 +94,39 @@ export default function EccView() {
               <div>
                 <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Prime (p) & Curve Coeffs (a, b)</label>
                 <div className="grid grid-cols-3 gap-2 bg-surface-container p-3 rounded-lg border border-outline-variant/30">
-                    <div>
-                        <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">p</div>
-                        <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={p} onChange={(e) => setP(Number(e.target.value))} />
-                    </div>
-                    <div>
-                        <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">a</div>
-                        <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={a} onChange={(e) => setA(Number(e.target.value))} />
-                    </div>
-                    <div>
-                        <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">b</div>
-                        <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={b} onChange={(e) => setB(Number(e.target.value))} />
-                    </div>
+                  <div>
+                    <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">p</div>
+                    <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={p} onChange={(e) => setP(Number(e.target.value))} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">a</div>
+                    <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={a} onChange={(e) => setA(Number(e.target.value))} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">b</div>
+                    <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={b} onChange={(e) => setB(Number(e.target.value))} />
+                  </div>
                 </div>
               </div>
 
               <div>
                 <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Base Point G (x, y) & Order n</label>
                 <div className="grid grid-cols-3 gap-2 bg-surface-container p-3 rounded-lg border border-outline-variant/30">
-                    <div>
-                        <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">Gx</div>
-                        <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={Gx} onChange={(e) => setGx(Number(e.target.value))} />
-                    </div>
-                    <div>
-                        <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">Gy</div>
-                        <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={Gy} onChange={(e) => setGy(Number(e.target.value))} />
-                    </div>
-                    <div>
-                        <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">n (Order)</div>
-                        <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={n} onChange={(e) => setN(Number(e.target.value))} />
-                    </div>
+                  <div>
+                    <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">Gx</div>
+                    <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={Gx} onChange={(e) => setGx(Number(e.target.value))} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">Gy</div>
+                    <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={Gy} onChange={(e) => setGy(Number(e.target.value))} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-on-surface-variant uppercase mb-1 font-mono">n (Order)</div>
+                    <input type="number" className="w-full bg-background border border-outline-variant/30 rounded px-2 py-1 text-primary-fixed-dim outline-none font-mono focus:border-primary text-sm" value={n} onChange={(e) => setN(Number(e.target.value))} />
+                  </div>
                 </div>
               </div>
-              
+
               <div>
                 <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Private Key Input</label>
                 <input type="number" className="w-full bg-surface-container text-primary-fixed-dim border border-outline-variant/30 rounded-lg px-4 py-2.5 focus:border-primary outline-none font-mono text-sm" value={privKey} onChange={(e) => setPrivKey(Number(e.target.value))} placeholder="Priv" />
@@ -151,22 +151,22 @@ export default function EccView() {
               <span className="material-symbols-outlined text-secondary">sync_alt</span>
               ECDH Key Exchange
             </h3>
-            
+
             <div className="space-y-3">
               <div>
                 <label className="block font-mono text-[12px] uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Alice & Bob Private Keys</label>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant text-xs font-mono">a=</div>
-                      <input type="number" className="w-full bg-surface-container text-secondary-fixed-dim border border-outline-variant/30 rounded-lg pl-8 pr-4 py-2.5 focus:border-secondary outline-none font-mono text-sm" value={privA} onChange={(e) => setPrivA(Number(e.target.value))} />
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant text-xs font-mono">a=</div>
+                    <input type="number" className="w-full bg-surface-container text-secondary-fixed-dim border border-outline-variant/30 rounded-lg pl-8 pr-4 py-2.5 focus:border-secondary outline-none font-mono text-sm" value={privA} onChange={(e) => setPrivA(Number(e.target.value))} />
                   </div>
                   <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant text-xs font-mono">b=</div>
-                      <input type="number" className="w-full bg-surface-container text-secondary-fixed-dim border border-outline-variant/30 rounded-lg pl-8 pr-4 py-2.5 focus:border-secondary outline-none font-mono text-sm" value={privB} onChange={(e) => setPrivB(Number(e.target.value))} />
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant text-xs font-mono">b=</div>
+                    <input type="number" className="w-full bg-surface-container text-secondary-fixed-dim border border-outline-variant/30 rounded-lg pl-8 pr-4 py-2.5 focus:border-secondary outline-none font-mono text-sm" value={privB} onChange={(e) => setPrivB(Number(e.target.value))} />
                   </div>
                 </div>
               </div>
-              
+
               <button onClick={handleKeyExchange} disabled={loading} className="w-full bg-secondary text-on-secondary py-3 rounded-lg text-[12px] font-mono uppercase font-bold shadow-[0_0_15px_rgba(206,189,255,0)] hover:shadow-[0_0_15px_rgba(206,189,255,0.3)] transition-shadow inner-glow flex items-center justify-center gap-2 active:scale-95">
                 <span className="material-symbols-outlined text-sm">wifi_protected_setup</span>
                 SIMULATE ECDH
@@ -175,7 +175,7 @@ export default function EccView() {
           </section>
         </div>
 
-        <div className="w-full lg:w-7/12 flex flex-col h-full">
+        <div className="w-full lg:w-7/12 flex flex-col h-full overflow-hidden">
           <section className="glass-panel rounded-xl flex flex-col h-full min-h-[500px]">
             <div className="p-3 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-high/30">
               <h3 className="text-[18px] font-semibold text-on-surface flex items-center gap-2">
@@ -186,13 +186,13 @@ export default function EccView() {
                 <span className="px-2 py-1 rounded bg-green-500/10 text-green-400 font-mono text-[10px] uppercase border border-green-500/20">{result ? "200 OK" : "IDLE"}</span>
               </div>
             </div>
-            
+
             <div className="flex-1 p-4 overflow-y-auto bg-surface-container-lowest/50 custom-scrollbar">
               {!result ? (
-                 <div className="h-full flex items-center justify-center text-on-surface-variant/50 font-mono text-sm">Waiting for execution...</div>
+                <div className="h-full flex items-center justify-center text-on-surface-variant/50 font-mono text-sm">Waiting for execution...</div>
               ) : (
                 <div className="space-y-6">
-                  
+
                   {result.points && (
                     <div>
                       <h4 className="font-mono text-[11px] text-on-surface-variant mb-2 uppercase tracking-widest flex justify-between">List of all Ps ({result.count})</h4>

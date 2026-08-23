@@ -12,11 +12,11 @@ export default function Home() {
 
   return (
     <>
-      
-      
-      <div className="flex flex-1 min-h-screen">
+
+
+      <div className="flex w-full h-screen overflow-hidden">
         {/* SideNavBar */}
-        <nav className="hidden md:flex flex-col py-6 bg-surface-container-low/50 backdrop-blur-2xl w-64 z-40 border-r border-outline-variant/10 flex-shrink-0 min-h-screen">
+        <nav className="hidden md:flex flex-col py-6 bg-surface-container-low/50 backdrop-blur-2xl w-64 z-40 border-r border-outline-variant/10 h-full flex-shrink-0">
           <div className="px-6 mb-8">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center border border-primary/30">
@@ -28,7 +28,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
+
           <div className="flex-1 px-4 space-y-1">
             <button onClick={() => setActiveTab('substitution')} className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all active:translate-x-1 duration-200 ${activeTab === 'substitution' ? 'text-primary bg-primary-container/10 border-l-4 border-primary font-medium' : 'text-on-surface-variant hover:bg-surface-container-high/50'}`}>
               <span className="material-symbols-outlined">sort_by_alpha</span>
@@ -54,13 +54,13 @@ export default function Home() {
               <span className="material-symbols-outlined">lock</span>
               <span className="text-sm">ECC</span>
             </button>
-            
+
           </div>
-          
-          </nav>
-        
-        <main className="flex-1 p-4 md:p-6 w-full relative flex flex-col">
-          <div className="max-w-[1440px] w-full mx-auto flex flex-col flex-1">
+
+        </nav>
+
+        <main className="flex-1 p-4 md:p-6 w-full h-full relative flex flex-col overflow-hidden">
+          <div className="max-w-[1440px] w-full h-full mx-auto flex flex-col overflow-hidden">
             {activeTab === "substitution" && <SubstitutionView />}
             {activeTab === "transposition" && <TranspositionView />}
             {activeTab === "des" && <DesView />}
