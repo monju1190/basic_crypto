@@ -80,12 +80,7 @@ export default function RsaView() {
           <h1 className="text-[32px] font-bold font-headline text-on-surface mb-1">RSA Configuration</h1>
           <p className="text-on-surface-variant text-[16px]">Public-key encryption algorithm with Factorization attack demonstration.</p>
         </div>
-        <div className="flex items-center gap-3 bg-surface-container-high px-4 py-2 rounded-full border border-outline-variant/20">
-          <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.5)]"></span>
-          <span className="font-mono text-xs text-on-surface-variant font-medium">API: Online</span>
-          <span className="text-on-surface-variant opacity-50 px-2">|</span>
-          <span className="font-mono text-xs text-primary-fixed-dim font-medium">Latency: 12ms</span>
-        </div>
+        
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
