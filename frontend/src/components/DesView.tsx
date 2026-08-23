@@ -36,7 +36,7 @@ export default function DesView() {
   };
 
   return (
-    <div className="flex flex-col h-full flex-1 min-h-0 space-y-4 w-full">
+    <div className="flex flex-col flex-1 space-y-4 w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-3 flex-shrink-0">
         <div>
           <h1 className="text-[24px] font-bold font-headline text-on-surface mb-1">DES Configuration</h1>
@@ -45,8 +45,8 @@ export default function DesView() {
         
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-4 flex-1 min-h-0">
-        <div className="w-full lg:w-5/12 flex flex-col space-y-4 h-full min-h-0 overflow-y-auto custom-scrollbar pr-2 pb-2">
+      <div className="flex flex-col lg:flex-row gap-4 flex-1">
+        <div className="w-full lg:w-5/12 flex flex-col space-y-4">
           <section className="glass-panel rounded-xl p-4 relative flex-shrink-0 overflow-hidden group">
             <div className="absolute top-0 left-0 w-1 h-full bg-primary/50 group-hover:bg-primary transition-colors"></div>
             <h3 className="text-[18px] font-semibold text-on-surface mb-3 flex items-center gap-2">
@@ -96,8 +96,8 @@ export default function DesView() {
           </section>
         </div>
 
-        <div className="w-full lg:w-7/12 h-full min-h-0">
-          <section className="glass-panel rounded-xl flex flex-col h-full ">
+        <div className="w-full lg:w-7/12 flex flex-col h-full">
+          <section className="glass-panel rounded-xl flex flex-col h-full min-h-[500px]">
             <div className="p-3 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-high/30">
               <h3 className="text-[18px] font-semibold text-on-surface flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary">terminal</span>

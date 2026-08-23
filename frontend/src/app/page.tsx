@@ -14,9 +14,9 @@ export default function Home() {
     <>
       
       
-      <div className="flex flex-1 h-screen">
+      <div className="flex flex-1 min-h-screen">
         {/* SideNavBar */}
-        <nav className="hidden md:flex flex-col py-6 bg-surface-container-low/50 backdrop-blur-2xl w-64 z-40 border-r border-outline-variant/10 h-full flex-shrink-0">
+        <nav className="hidden md:flex flex-col py-6 bg-surface-container-low/50 backdrop-blur-2xl w-64 z-40 border-r border-outline-variant/10 flex-shrink-0 min-h-screen">
           <div className="px-6 mb-8">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center border border-primary/30">
@@ -59,8 +59,8 @@ export default function Home() {
           
           </nav>
         
-        <main className="flex-1 p-4 md:p-6 overflow-hidden w-full relative flex flex-col min-h-0">
-          <div className="max-w-[1440px] w-full h-full mx-auto flex flex-col flex-1 min-h-0">
+        <main className="flex-1 p-4 md:p-6 w-full relative flex flex-col">
+          <div className="max-w-[1440px] w-full mx-auto flex flex-col flex-1">
             {activeTab === "substitution" && <SubstitutionView />}
             {activeTab === "transposition" && <TranspositionView />}
             {activeTab === "des" && <DesView />}
