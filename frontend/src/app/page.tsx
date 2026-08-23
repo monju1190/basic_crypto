@@ -59,9 +59,8 @@ export default function Home() {
           
           </nav>
         
-        {/* Main Workspace */}
         <main className="flex-1 p-4 md:p-6 overflow-hidden w-full relative flex flex-col">
-          <div className="max-w-[1440px] w-full mx-auto flex-1 min-h-0">
+          <div className="max-w-[1440px] w-full h-full mx-auto flex flex-col min-h-0">
             {activeTab === "substitution" && <SubstitutionView />}
             {activeTab === "transposition" && <TranspositionView />}
             {activeTab === "des" && <DesView />}
