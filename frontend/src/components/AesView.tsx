@@ -10,7 +10,7 @@ export default function AesView() {
   const handleEncrypt = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/aes/encrypt", {
+      const res = await fetch("/api/aes/encrypt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plaintext, key }),
@@ -24,7 +24,7 @@ export default function AesView() {
   const handleDecrypt = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/aes/decrypt", {
+      const res = await fetch("/api/aes/decrypt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ciphertext: plaintext, key }),

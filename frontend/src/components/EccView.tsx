@@ -23,7 +23,7 @@ export default function EccView() {
     setLoading(true);
     setResult(null);
     try {
-      const res = await fetch("http://localhost:8000/api/ecc/points", {
+      const res = await fetch("/api/ecc/points", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ p, a, b }),
@@ -40,7 +40,7 @@ export default function EccView() {
     setLoading(true);
     setResult(null);
     try {
-      const res = await fetch("http://localhost:8000/api/ecc/keypair", {
+      const res = await fetch("/api/ecc/keypair", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ p, a, b, Gx, Gy, private_key: privKey }),
@@ -58,7 +58,7 @@ export default function EccView() {
     setLoading(true);
     setResult(null);
     try {
-      const res = await fetch("http://localhost:8000/api/ecc/ecdh", {
+      const res = await fetch("/api/ecc/ecdh", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ p, a, b, Gx, Gy, private_a: privA, private_b: privB }),

@@ -16,7 +16,7 @@ export default function RsaView() {
     try {
       if (choice === "generate") {
         const actualBits = bits === 0 ? Math.floor(Math.random() * (1024 - 128 + 1)) + 128 : bits;
-        const res = await fetch("http://localhost:8000/api/rsa/generate", {
+        const res = await fetch("/api/rsa/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ bits: actualBits }),
@@ -26,7 +26,7 @@ export default function RsaView() {
         setResult({ type: "Key Generation", ...data });
       } else if (choice === "encrypt") {
         if (!keypair) { alert("Generate keys first"); setLoading(false); return; }
-        const res = await fetch("http://localhost:8000/api/rsa/encrypt", {
+        const res = await fetch("/api/rsa/encrypt", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ plaintext, public_key: keypair.public_key }),
@@ -46,7 +46,7 @@ export default function RsaView() {
             return;
         }
         
-        const res = await fetch("http://localhost:8000/api/rsa/decrypt", {
+        const res = await fetch("/api/rsa/decrypt", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ ciphertext: cipherArray, private_key: keypair.private_key }),
@@ -63,7 +63,7 @@ export default function RsaView() {
   const handleFactorization = async () => {
     if (!keypair) return alert("Generate keys first");
     setLoading(true);
-    const res = await fetch("http://localhost:8000/api/rsa/factorize", {
+    const res = await fetch("/api/rsa/factorize", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ n: keypair.public_key[1] }),

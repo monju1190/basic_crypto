@@ -10,7 +10,7 @@ export default function DesView() {
   const handleEncrypt = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/des/encrypt", {
+      const res = await fetch("/api/des/encrypt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plaintext, key }),
@@ -24,7 +24,7 @@ export default function DesView() {
   const handleDecrypt = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/des/decrypt", {
+      const res = await fetch("/api/des/decrypt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ciphertext: plaintext, key }),

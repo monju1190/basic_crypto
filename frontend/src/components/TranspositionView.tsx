@@ -11,7 +11,7 @@ export default function TranspositionView() {
   const handleEncrypt = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/transposition/encrypt", {
+      const res = await fetch("/api/transposition/encrypt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plaintext, key1, key2 }),
@@ -25,7 +25,7 @@ export default function TranspositionView() {
   const handleDecrypt = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/transposition/decrypt", {
+      const res = await fetch("/api/transposition/decrypt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ciphertext: plaintext, key1, key2 }),

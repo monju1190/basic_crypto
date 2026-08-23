@@ -9,7 +9,7 @@ export default function SubstitutionView() {
   const handleBruteForce = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/substitution/brute_force", {
+      const res = await fetch("/api/substitution/brute_force", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ciphertext: result?.ciphertext || plaintext, key: "" }),
       });
@@ -21,7 +21,7 @@ export default function SubstitutionView() {
   const handleEncrypt = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/substitution/encrypt", {
+      const res = await fetch("/api/substitution/encrypt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plaintext, key }),
@@ -35,7 +35,7 @@ export default function SubstitutionView() {
   const handleDecrypt = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/substitution/decrypt", {
+      const res = await fetch("/api/substitution/decrypt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ciphertext: plaintext, key }),
