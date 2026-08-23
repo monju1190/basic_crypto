@@ -37,7 +37,7 @@ export default function TranspositionView() {
   };
 
   return (
-    <div className="flex flex-col h-full space-y-4">
+    <div className="flex flex-col h-full flex-1 min-h-0 space-y-4 w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-3 flex-shrink-0">
         <div>
           <h1 className="text-[24px] font-bold font-headline text-on-surface mb-1">Double Transposition Cipher</h1>
