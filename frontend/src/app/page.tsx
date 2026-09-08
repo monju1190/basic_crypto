@@ -23,8 +23,8 @@ export default function Home() {
                 <span className="material-symbols-outlined text-primary text-sm">hub</span>
               </div>
               <div>
-                <h2 className="text-xs font-bold text-primary uppercase tracking-wider">Encryption Labs</h2>
-                <p className="text-[10px] text-on-surface-variant mt-0.5">API Testing Suite</p>
+                <h2 className="text-xs font-bold text-primary uppercase tracking-wider">Encryption Checker</h2>
+                <p className="text-[10px] text-on-surface-variant mt-0.5">By Monjur</p>
               </div>
             </div>
           </div>
